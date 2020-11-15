@@ -1,0 +1,82 @@
+#calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 500px;
+  height: 700px;
+  border: 1px solid black;
+  grid-template-areas:
+    "display display display display"
+    "seven eight nine add"
+    "four five six subtract"
+    "one two three multiply"
+    "zero clear equal divide";
+}
+
+#display-area {
+  grid-area: display;
+}
+
+#seven {
+  grid-area: seven;
+}
+
+#eight {
+  grid-area: eight;
+}
+
+#nine {
+  grid-area: nine;
+}
+
+#add {
+  grid-area: add;
+}
+
+#four {
+  grid-area: four;
+}
+
+#five {
+  grid-area: five;
+}
+
+#six {
+  grid-area: six;
+}
+
+#subtract {
+  grid-area: subtract;
+}
+
+#one {
+  grid-area: one;
+}
+
+#two {
+  grid-area: two;
+}
+
+#three {
+  grid-area: three;
+}
+
+#multiply {
+  grid-area: multiply;
+}
+
+#zero {
+  grid-area: zero;
+}
+
+#clear {
+  grid-area: clear;
+}
+
+#equal {
+  grid-area: equal;
+}
+
+#divide {
+  grid-area: divide;
+}
