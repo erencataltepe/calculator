@@ -1,3 +1,10 @@
+let currentOperator = null;
+let firstOperand = null;
+let secondOperand = null;
+const displayArea = document.getElementById("display-area");
+const numberButtons = document.querySelectorAll(".numbers");
+const operators = document.querySelectorAll(".operator");
+
 function add(a, b) {
   return a + b;
 }
@@ -19,14 +26,39 @@ function operate(a, b, operator) {
 }
 
 function displayValue(value) {
-  const displayArea = document.getElementById("display-area");
-  displayArea.textContent = value;
-  return value;
+  displayArea.textContent = displayArea.textContent + value;
 }
 
-const numberButtons = document.querySelectorAll(".numbers");
+function getDisplayValue() {
+  return displayArea.textContent;
+}
+
+function setOperator(operator) {
+  currentOperator = operator;
+}
+
+function setOperand(value) {
+  if (firstOperand == null) {
+    firstOperand = value;
+  } else {
+    secondOperand = value;
+  }
+}
+
+function clearDisplay() {
+  displayArea.textContent = "";
+}
+
 numberButtons.forEach((numberButton) => {
-  numberButton.addEventListener("click", (e) => {
+  numberButton.addEventListener('click', (e) => {    
     displayValue(e.target.textContent);
+  })
+})
+
+operators.forEach((operator) => {
+  operator.addEventListener('click', (e) => {
+    setOperator(e.target.id);
+    setOperand(getDisplayValue());
+    console.log(firstOperand);
   })
 })
