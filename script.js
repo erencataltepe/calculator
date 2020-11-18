@@ -2,6 +2,7 @@ let currentOperator = null;
 let firstOperand = null;
 let secondOperand = null;
 let toBeCleaned = false;
+let result = null;
 const displayArea = document.getElementById("display-area");
 const numberButtons = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operator");
@@ -50,7 +51,17 @@ function getDisplayValue() {
 }
 
 function setOperator(operator) {
-  currentOperator = operator;
+  if (currentOperator == null) {
+    currentOperator = operator;
+  } else if (firstOperand && secondOperand) {
+    result = operate(Number(firstOperand), Number(secondOperand), currentOperator);
+    clearDisplay();
+    displayValue(result);
+    firstOperand = result;
+    secondOperand = null;
+    currentOperator = operator;
+  }
+
 }
 
 function setOperand(value) {
@@ -72,6 +83,15 @@ function clearAllValues() {
   clearDisplay();
 }
 
+function generateResult() {
+  if (firstOperand && currentOperator && !toBeCleaned && !secondOperand) {
+    setOperand(getDisplayValue());
+    return operate(Number(firstOperand), Number(secondOperand), currentOperator);
+  } else {
+    return false;
+  }
+}
+
 numberButtons.forEach((numberButton) => {
   numberButton.addEventListener('click', (e) => {    
     if (toBeCleaned) {
@@ -84,22 +104,16 @@ numberButtons.forEach((numberButton) => {
 
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    setOperator(e.target.id);
     setOperand(getDisplayValue());
+    setOperator(e.target.id);
     toBeCleaned = true;
   })
 })
 
 equalSign.addEventListener("click", () => {
-  console.log(firstOperand);
-  console.log(secondOperand);
-  console.log(currentOperator);
-  console.log(toBeCleaned);
-  if (firstOperand && currentOperator && !toBeCleaned && !secondOperand) {
-    setOperand(getDisplayValue());
-    let result = operate(Number(firstOperand), Number(secondOperand), currentOperator);
-    console.log(result);
-    clearDisplay();
+  result = generateResult();
+  clearDisplay();
+  if (result) {
     displayValue(result);
   }
 })
